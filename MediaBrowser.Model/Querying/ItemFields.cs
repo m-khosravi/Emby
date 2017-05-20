@@ -16,11 +16,6 @@
         AlternateEpisodeNumbers,
 
         /// <summary>
-        /// The awards summary
-        /// </summary>
-        AwardSummary,
-
-        /// <summary>
         /// The can delete
         /// </summary>
         CanDelete,
@@ -41,11 +36,6 @@
         Chapters,
 
         ChildCount,
-
-        /// <summary>
-        /// The critic rating summary
-        /// </summary>
-        CriticRatingSummary,
 
         /// <summary>
         /// The cumulative run time ticks
@@ -121,13 +111,6 @@
         /// The media versions
         /// </summary>
         MediaSources,
-
-        /// <summary>
-        /// The metascore
-        /// </summary>
-        Metascore,
-
-        OfficialRatingDescription,
 
         OriginalTitle,
 

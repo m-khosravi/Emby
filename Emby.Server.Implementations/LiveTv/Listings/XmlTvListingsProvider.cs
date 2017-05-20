@@ -86,7 +86,7 @@ namespace Emby.Server.Implementations.LiveTv.Listings
 
             }).ConfigureAwait(false);
 
-            _fileSystem.CreateDirectory(Path.GetDirectoryName(cacheFile));
+            _fileSystem.CreateDirectory(_fileSystem.GetDirectoryName(cacheFile));
 
             using (var stream = _fileSystem.OpenRead(tempFile))
             {
@@ -268,12 +268,12 @@ namespace Emby.Server.Implementations.LiveTv.Listings
             var results = reader.GetChannels();
 
             // Should this method be async?
-            return results.Select(c => new ChannelInfo()
+            return results.Select(c => new ChannelInfo
             {
                 Id = c.Id,
                 Name = c.DisplayName,
                 ImageUrl = c.Icon != null && !String.IsNullOrEmpty(c.Icon.Source) ? c.Icon.Source : null,
-                Number = c.Id
+                Number = string.IsNullOrWhiteSpace(c.Number) ? c.Id : c.Number
 
             }).ToList();
         }

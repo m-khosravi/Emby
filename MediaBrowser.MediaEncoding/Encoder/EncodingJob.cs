@@ -38,11 +38,8 @@ namespace MediaBrowser.MediaEncoding.Encoder
         public bool EstimateContentLength { get; set; }
         public TranscodeSeekInfo TranscodeSeekInfo { get; set; }
         public long? EncodingDurationTicks { get; set; }
-        public string LiveStreamId { get; set; }
 
         public string ItemType { get; set; }
-
-        public string AlbumCoverPath { get; set; }
 
         public string GetMimeType(string outputPath)
         {
@@ -58,7 +55,7 @@ namespace MediaBrowser.MediaEncoding.Encoder
         private readonly IMediaSourceManager _mediaSourceManager;
 
         public EncodingJob(ILogger logger, IMediaSourceManager mediaSourceManager) : 
-            base(logger)
+            base(logger, TranscodingJobType.Progressive)
         {
             _logger = logger;
             _mediaSourceManager = mediaSourceManager;
@@ -94,7 +91,7 @@ namespace MediaBrowser.MediaEncoding.Encoder
 
         private async void DisposeLiveStream()
         {
-            if (MediaSource.RequiresClosing)
+            if (MediaSource.RequiresClosing && string.IsNullOrWhiteSpace(Options.LiveStreamId) && !string.IsNullOrWhiteSpace(MediaSource.LiveStreamId))
             {
                 try
                 {
